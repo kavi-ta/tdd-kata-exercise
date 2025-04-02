@@ -24,13 +24,14 @@ def string_calculator(string_of_nums):
                 for num in line.split(delimiter):
                     if num=="":
                         raise ValueError("Invalid Input")
-                    if int(num)>0:
-                        postive_numbers.append(int(num))
-                    else :
-                        negative_numbers.append(int(num))
+                    num = int(num)
+                    if num>=0 and num<=1000:
+                        postive_numbers.append(num)
+                    elif num<0:
+                        negative_numbers.append(num)
             if negative_numbers:
                 raise NegativeNumberException(negative_numbers)
-            return sum(postive_numbers)
+            return sum(postive_numbers,0)
     except Exception as e:
         raise e
 

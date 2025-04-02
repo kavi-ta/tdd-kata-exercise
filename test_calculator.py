@@ -45,5 +45,14 @@ def test_add():
     with pytest.raises(NegativeNumberException) as excinfo:
         string_calculator("//!\n2!-2")
     assert str(excinfo.value)== "negatives not allowed -2"
+    # case 6: numbers bigger than 1000 to be ignored
+    assert string_calculator("1000") == 1000
+    assert string_calculator("1001") == 0
+    assert string_calculator("1001,2") ==2
+    with pytest.raises(NegativeNumberException) as excinfo:
+        string_calculator("-20000")
+    assert str(excinfo.value)== "negatives not allowed -20000"
+    assert string_calculator("2000,2,2")==4
+
 
 
