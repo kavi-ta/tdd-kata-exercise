@@ -20,4 +20,13 @@ def test_add():
     with pytest.raises(ValueError) as excinfo:
         string_calculator("1,\n2")
     assert str(excinfo.value)== "Invalid Input"
+    assert string_calculator("//;\n1;2")==3
+    with pytest.raises(ValueError) as excinfo:
+        string_calculator("//;\n1\n;2")
+    assert str(excinfo.value)== "Invalid Input"
+    assert string_calculator("//;\n3;4")==7
+    with pytest.raises(ValueError) as excinfo:
+        string_calculator("//!\n2!2!")
+    assert str(excinfo.value)== "Invalid Input"
+
 
