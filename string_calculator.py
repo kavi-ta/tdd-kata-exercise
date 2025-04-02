@@ -23,8 +23,12 @@ def string_calculator(string_of_nums):
             negative_numbers = []
             split_pattern = "|".join(map(re.escape, delimiter))
             for line in string_of_nums.split("\n"):
+
                 for num in re.split(split_pattern, line):
-                    if num=="":
+                    num = num.strip()
+                    if not num:
+                        raise ValueError("Invalid Input")
+                    if not num.lstrip('-').isdigit():
                         raise ValueError("Invalid Input")
                     num = int(num)
                     if num>=0 and num<=1000:

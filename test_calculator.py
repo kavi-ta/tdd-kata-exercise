@@ -68,3 +68,16 @@ def test_add():
     with pytest.raises(ValueError) as excinfo:
         string_calculator("//[**][%]\n1**2%3**")
     assert str(excinfo.value)== "Invalid Input"
+    # case 10: to throw error on inputs other than numbers which are not delimiters
+    with pytest.raises(ValueError) as excinfo:
+        string_calculator('a')
+    assert str(excinfo.value)== "Invalid Input"
+    with pytest.raises(ValueError) as excinfo:
+        string_calculator('a,b,-3')
+    assert str(excinfo.value)== "Invalid Input"
+    with pytest.raises(ValueError) as excinfo:
+        string_calculator('2,a,b,-3')
+    assert str(excinfo.value)== "Invalid Input"
+    with pytest.raises(ValueError) as excinfo:
+        string_calculator("//[**][%]\n1**ab2%3**")
+    assert str(excinfo.value)== "Invalid Input"
