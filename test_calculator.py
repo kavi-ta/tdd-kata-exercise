@@ -52,7 +52,9 @@ def test_add():
     with pytest.raises(NegativeNumberException) as excinfo:
         string_calculator("-20000")
     assert str(excinfo.value)== "negatives not allowed -20000"
+    # case 7: allow delimiter of any length
     assert string_calculator("2000,2,2")==4
-
+    assert string_calculator("//***\n1***2***3")==6
+    assert string_calculator("//ab\n1ab2ab3")==6
 
 
