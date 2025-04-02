@@ -11,17 +11,17 @@ def string_calculator(string_of_nums):
            
             # default delimiter
             delimiter = ","
-            delimiter_pattern = r"^//(.*?)\n"
+            delimiter_pattern = r"^//(\[.*?\])+\n"
             delimiter_exists = re.match(delimiter_pattern, string_of_nums)
 
             if delimiter_exists:
                 delimiter_string, string_of_nums = string_of_nums.split('\n', 1)
-                delimiter = delimiter_string[2:]
-
+                delimiter = re.findall(r"\[(.*?)\]",delimiter_string)
             postive_numbers = []
             negative_numbers = []
+            split_pattern = "|".join(map(re.escape, delimiter))
             for line in string_of_nums.split("\n"):
-                for num in line.split(delimiter):
+                for num in re.split(split_pattern, line):
                     if num=="":
                         raise ValueError("Invalid Input")
                     num = int(num)

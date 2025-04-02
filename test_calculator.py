@@ -24,13 +24,13 @@ def test_add():
         string_calculator("1,\n2")
     assert str(excinfo.value)== "Invalid Input"
     # case 4: add a delimiter
-    assert string_calculator("//;\n1;2")==3
+    assert string_calculator("//[;]\n1;2")==3
     with pytest.raises(ValueError) as excinfo:
-        string_calculator("//;\n1\n;2")
+        string_calculator("//[;]\n1\n;2")
     assert str(excinfo.value)== "Invalid Input"
-    assert string_calculator("//;\n3;4")==7
+    assert string_calculator("//[;]\n3;4")==7
     with pytest.raises(ValueError) as excinfo:
-        string_calculator("//!\n2!2!")
+        string_calculator("//[!]\n2!2!")
     assert str(excinfo.value)== "Invalid Input"
     # case 5 : handle negative numbers
     with pytest.raises(NegativeNumberException) as excinfo:
@@ -40,10 +40,10 @@ def test_add():
         string_calculator("-2,4,-5")
     assert str(excinfo.value)== "negatives not allowed -2,-5"
     with pytest.raises(ValueError) as excinfo:
-        string_calculator("//!\n-2!2!")
+        string_calculator("//[!]\n-2!2!")
     assert str(excinfo.value)== "Invalid Input"
     with pytest.raises(NegativeNumberException) as excinfo:
-        string_calculator("//!\n2!-2")
+        string_calculator("//[!]\n2!-2")
     assert str(excinfo.value)== "negatives not allowed -2"
     # case 6: numbers bigger than 1000 to be ignored
     assert string_calculator("1000") == 1000
@@ -54,7 +54,13 @@ def test_add():
     assert str(excinfo.value)== "negatives not allowed -20000"
     # case 7: allow delimiter of any length
     assert string_calculator("2000,2,2")==4
-    assert string_calculator("//***\n1***2***3")==6
-    assert string_calculator("//ab\n1ab2ab3")==6
-
-
+    assert string_calculator("//[***]\n1***2***3")==6
+    assert string_calculator("//[ab]\n1ab2ab3")==6
+    # case 8: multiple delimiter allowed
+    assert string_calculator("//[*][%]\n1*2%3")==6
+    # case 9: multiple delimiter with length more than one
+    assert string_calculator("//[**][%]\n1**2%3")==6
+    assert string_calculator("//[**][%]\n1**2**3")==6
+    with pytest.raises(ValueError) as excinfo:
+        string_calculator("//[**][%]\n1**2%3**")
+    assert str(excinfo.value)== "Invalid Input"
