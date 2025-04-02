@@ -11,3 +11,13 @@ def test_add():
     with pytest.raises(ValueError) as excinfo:
         string_calculator(",")
     assert str(excinfo.value)== "Invalid Input"
+    assert string_calculator("1,2,3,4,5,6")==1+2+3+4+5+6
+    # allow new lines between numbers
+    assert string_calculator("1\n2,3")==6
+    with pytest.raises(ValueError) as excinfo:
+        string_calculator("1,\n")
+    assert str(excinfo.value)== "Invalid Input"
+    with pytest.raises(ValueError) as excinfo:
+        string_calculator("1,\n2")
+    assert str(excinfo.value)== "Invalid Input"
+

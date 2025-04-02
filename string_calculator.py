@@ -6,10 +6,12 @@ def string_calculator(string_of_nums):
         else:
             # clean data: only accept csv numbers
             sum_value = 0
-            for num in string_of_nums.split(","):
-                if num=="":
-                    raise ValueError("Invalid Input")
-                sum_value+=int(num)
+            for line in string_of_nums.split("\n"):
+                print("line", line)
+                for num in line.split(","):
+                    if num=="":
+                        raise ValueError("Invalid Input")
+                    sum_value+=int(num)
 
             return sum_value
     except Exception as e:
