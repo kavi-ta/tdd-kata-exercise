@@ -3,6 +3,8 @@ from custom_exceptions import NegativeNumberException
 
 def string_calculator(string_of_nums):
     try:
+        if not isinstance(string_of_nums, str) :
+            raise ValueError("Invalid input. Input should be a string")
         if not string_of_nums.strip():
             # empty string
             return 0

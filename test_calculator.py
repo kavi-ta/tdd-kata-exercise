@@ -3,6 +3,10 @@ from string_calculator import string_calculator
 from custom_exceptions import NegativeNumberException
 
 def test_add():
+    # case 0: input should be a string
+    with pytest.raises(ValueError) as excinfo:
+        string_calculator(1)
+    assert str(excinfo.value)=="Invalid input. Input should be a string"
     # case 1
     assert string_calculator("") == 0
     assert string_calculator("  ")==0
